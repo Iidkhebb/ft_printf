@@ -33,7 +33,7 @@ void conversions(const char *str, va_list data, unsigned int *print_count)
     else if (*str == 'x' || *str == 'X')
         ft_puthex(16, va_arg(data, int), *str, print_count);
 }
-int print(const char *str, ...)
+int ft_printf(const char *str, ...)
 {
     va_list data;
     unsigned int i;
@@ -63,11 +63,11 @@ int print(const char *str, ...)
     va_end(data);
     return(print_count);
 }
-
+/*
 int main ()
 {
     char *x = "hello";
-    print("%u\n", 1515);
+    ft_printf("%u\n", 1515);
     printf("%u", 1515);
 
-}
+}*/
