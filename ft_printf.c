@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
 void conversions(const char *str, va_list data, unsigned int *print_count)
 {
     int c;
@@ -20,17 +21,19 @@ void conversions(const char *str, va_list data, unsigned int *print_count)
         c = va_arg(data, int);
         *print_count += write(1, &c, 1);
     }
-    else if (*str == 'p' || *str == 'u' || *str == 'x' || *str == 'X')
-    {  
-        if (*str == 'p')
-            ft_putstr("0x", print_count);
-        ft_puthex(16, va_arg(data, unsigned long int), *str, print_count);
-    }
+    else if (*str == 'u' || *str == 'x' || *str == 'X')
+        ft_puthex(16, va_arg(data, unsigned int), *str, print_count);
     else if (*str == 's')
         ft_putstr(va_arg(data, const char *), print_count);
-    else if (*str == 'd' || *str == 'i')
+    else if ((*str == 'd' || *str == 'i') || (*str == '+' || *str == '-'))
         put_nbr(10, va_arg(data, int), "0123456789", print_count);
+    else if (*str == 'p')
+    {
+        ft_putstr("0x", print_count);
+        put_pointer(16, va_arg(data, unsigned long), print_count);
+    }
 }
+
 int ft_printf(const char *str, ...)
 {
     va_list data;
@@ -44,6 +47,7 @@ int ft_printf(const char *str, ...)
     i = 0;
     while (str[i])
     {
+        
         if(str[i] == '%')
         {
             if(str[i + 1] == '%')
@@ -58,11 +62,4 @@ int ft_printf(const char *str, ...)
     }
     va_end(data);
     return(print_count);
-}
-
-int main ()
-{
-    char *x = "hello";
-    ft_printf("%%s\n", x);
-    //printf("%%s\n", x);
 }
