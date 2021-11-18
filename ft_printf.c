@@ -14,24 +14,22 @@
 void conversions(const char *str, va_list data, unsigned int *print_count)
 {
     int c;
+
     if (*str == 'c')
     {
         c = va_arg(data, int);
         *print_count += write(1, &c, 1);
     }
-    else if (*str == 'p')
-    {
-        ft_putstr("0x", print_count);
-        ft_puthex_void(16, va_arg(data, unsigned long int), "0123456789abcdef", print_count);
+    else if (*str == 'p' || *str == 'u' || *str == 'x' || *str == 'X')
+    {  
+        if (*str == 'p')
+            ft_putstr("0x", print_count);
+        ft_puthex(16, va_arg(data, unsigned long int), *str, print_count);
     }
     else if (*str == 's')
         ft_putstr(va_arg(data, const char *), print_count);
     else if (*str == 'd' || *str == 'i')
-        ft_putnbr(va_arg(data, int), print_count);
-    else if (*str == 'u')
-        ft_put_unsigned_nb(va_arg(data, unsigned int), print_count);
-    else if (*str == 'x' || *str == 'X')
-        ft_puthex(16, va_arg(data, int), *str, print_count);
+        put_nbr(10, va_arg(data, int), "0123456789", print_count);
 }
 int ft_printf(const char *str, ...)
 {
@@ -52,22 +50,19 @@ int ft_printf(const char *str, ...)
                 print_count += write(1, "%", 1);
             else
                 conversions(&str[i + 1], data, &print_count);
-                i++;
+            i++;
         }
-        else
-        {       
+        else    
             print_count += write(1, &str[i], 1);
-        }
         i++;
     }
     va_end(data);
     return(print_count);
 }
-/*
+
 int main ()
 {
     char *x = "hello";
-    ft_printf("%u\n", 1515);
-    printf("%u", 1515);
-
-}*/
+    ft_printf("%%s\n", x);
+    //printf("%%s\n", x);
+}

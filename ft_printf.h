@@ -10,15 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef FT_PRINTF_H
+#define FT_PRINTF_H
 
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdarg.h>
-#include <stdio.h>
+# include <unistd.h>
+# include <stdlib.h>
+# include <stdarg.h>
+# include <stdio.h>
 
-int ft_printf(const char *str, ...);
-void	ft_putstr(const char *str, unsigned int *print_count);
-void	ft_putnbr(int nb, unsigned int *print_count);
-void ft_put_unsigned_nb(unsigned int nb,  unsigned int *print_count);
-void	ft_puthex(int i, unsigned int nbr, char str, unsigned int *print_count);
-void ft_puthex_void(int i, unsigned long nbr, char *base, unsigned int *print_count);
+int     ft_printf(const char *str, ...);
+void    ft_putstr(const char *str, unsigned int *print_count);
+void    ft_put_unsigned_nb(unsigned int nb,  unsigned int *print_count);
+void    ft_puthex(unsigned long int, unsigned long int nbr, const char str, unsigned int *print_count);
+void    put_nbr(int i, int nbr, const char *base, unsigned int *print_count);
+
+#endif

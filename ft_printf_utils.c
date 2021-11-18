@@ -22,58 +22,20 @@ void	ft_putstr(const char *str, unsigned int *print_count)
 		i++;
 	}
 }
-void ft_put_unsigned_nb(unsigned int nb,  unsigned int *print_count)
-{
-	unsigned int rz;
-	if (nb > 9)
-		ft_put_unsigned_nb(nb / 10, print_count);
-	rz  =(nb % 10) + 48;
-	print_count += write(1, &rz, 1);
-}
 
-void	ft_putnbr(int nb, unsigned int *print_count)
-{	
-	char rz;
-	if (nb < -2147483647)
-	{
-		print_count += write(1, "-2147483648", 11);
-	}
-	if (nb < 0 && nb > -2147483648)
-	{
-		nb = -nb;
-		print_count += write(1, "-", 1);
-	}
-	if (nb < 10 && nb >= 0 )
-	{
-		rz = (nb + 48);
-		print_count += write(1, &rz, 1);
-	}	
-	if (nb >= 10)
-	{
-		ft_putnbr(nb / 10, print_count);
-		rz = (nb % 10 + 48);
-		print_count += write(1, &rz, 1);
-	}	
-}
-
-void ft_puthex_void(int i, unsigned long nbr, char *base, unsigned int *print_count)
-{
-	if (nbr >= i)
-    {
-        ft_puthex_void(i, nbr / i, base, print_count);
-        ft_puthex_void(i, nbr % i, base, print_count);
-    }
-    else
-        *print_count += write(1, base + nbr, 1);
-}
-
-void	ft_puthex(int i, unsigned int nbr, char str, unsigned int *print_count)
+void	ft_puthex(unsigned long int i, unsigned long int nbr, const char str, unsigned int *print_count)
 {
 	char *base;
+
 	if (str == 'X')
 		base = "0123456789ABCDEF";
-	else if (str == 'x')
+	else if (str == 'x' || str == 'p')
 		base = "0123456789abcdef";
+	else if (str == 'u')
+	{
+		base = "0123456789";
+		i = 10;
+	}
 	
 	if (nbr >= i)
     {
@@ -83,4 +45,18 @@ void	ft_puthex(int i, unsigned int nbr, char str, unsigned int *print_count)
     else
         *print_count += write(1, base + nbr, 1);
 }
-
+void put_nbr(int i, int nbr, const char *base, unsigned int *print_count)
+{
+	if (nbr < 0)
+	{
+		nbr = -nbr;
+		*print_count += write(1, "-", 1);
+	}
+	if (nbr >= i)
+    {
+        put_nbr(i, nbr / i, base, print_count);
+        put_nbr(i, nbr % i, base, print_count);
+    }
+    else
+        *print_count += write(1, base + nbr, 1);
+}
