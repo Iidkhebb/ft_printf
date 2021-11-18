@@ -6,7 +6,7 @@
 /*   By: iidkhebb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 00:00:38 by iidkhebb          #+#    #+#             */
-/*   Updated: 2021/11/15 00:00:41 by iidkhebb         ###   ########.fr       */
+/*   Updated: 2021/11/19 00:36:27 by iidkhebb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
@@ -29,9 +29,10 @@ void	ft_putstr(const char *str, unsigned int *print_count)
 	return ;
 }
 
-void	ft_puthex(unsigned int i, unsigned int nbr, const char str, unsigned int *print_count)
+void	ft_puthex(unsigned int i, unsigned int nbr, const char str,
+	unsigned int *print_count)
 {
-	char *base;
+	char	*base;
 
 	if (str == 'X')
 		base = "0123456789ABCDEF";
@@ -44,16 +45,16 @@ void	ft_puthex(unsigned int i, unsigned int nbr, const char str, unsigned int *p
 		base = "0123456789";
 		i = 10;
 	}
-	
 	if (nbr >= i)
-    {
-        ft_puthex(i, nbr / i, str, print_count);
-        ft_puthex(i, nbr % i, str, print_count);
-    }
-    else
-        *print_count += write(1, base + nbr, 1);
+	{
+		ft_puthex(i, nbr / i, str, print_count);
+		ft_puthex(i, nbr % i, str, print_count);
+	}
+	else
+		*print_count += write(1, base + nbr, 1);
 }
-void put_nbr(int i, int nbr, const char *base, unsigned int *print_count)
+
+void	put_nbr(int i, int nbr, const char *base, unsigned int *print_count)
 {
 	if (nbr < -2147483647)
 	{
@@ -66,25 +67,25 @@ void put_nbr(int i, int nbr, const char *base, unsigned int *print_count)
 		*print_count += write(1, "-", 1);
 	}
 	if (nbr >= i)
-    {
+	{
 		put_nbr(i, nbr / i, base, print_count);
-        put_nbr(i, nbr % i, base, print_count);
-    }
-    else
-        *print_count += write(1, base + nbr, 1);
+		put_nbr(i, nbr % i, base, print_count);
+	}
+	else
+		*print_count += write(1, base + nbr, 1);
 }
 
-void put_pointer(unsigned long i, unsigned long nbr, unsigned int *print_count)
+void	put_pointer(unsigned long i, unsigned long nbr,
+	unsigned int *print_count)
 {
-	char *base;
+	char	*base;
 
 	base = "0123456789abcdef";
-	
 	if (nbr >= i)
-    {
-        put_pointer(i, nbr / i, print_count);
-        put_pointer(i, nbr % i, print_count);
-    }
-    else
-        *print_count += write(1, base + nbr, 1);
+	{
+		put_pointer(i, nbr / i, print_count);
+		put_pointer(i, nbr % i, print_count);
+	}
+	else
+		*print_count += write(1, base + nbr, 1);
 }
