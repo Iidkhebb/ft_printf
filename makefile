@@ -1,21 +1,18 @@
-NAME = libftprintf.a
 
-SRCS =  ft_printf.c ft_printf_utils.c
+CFILES =  ft_printf.c ft_printf_utils.c
+OFILES = ${CFILES:.c=.o}
 
 FLAGS = -c -Wall -Wextra -Werror
+CC = gcc
+INC = ft_printf.h
+NAME = libftprintf.a
 
-OBJS = $(SRCS:.c=.o)
-
-$(NAME): $(OBJS)
-	gcc $(FLAGS) $(SRCS)
-	ar -rcs $(NAME) $(OBJS)
-
-all : $(NAME)
-
+${NAME}: ${OFILES} ${INC}
+	@${CC} ${FLAGS} ${CFILES}
+	@ar -rc ${NAME} ${OFILES}
 clean :
-	rm -rf $(OBJS)
-
+	@rm -rf ${OFILES}
 fclean : clean
-	rm -rf $(NAME)
-
+	@rm -rf ${NAME}
 re : fclean all
+all : ${NAME}
