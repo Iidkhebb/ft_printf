@@ -6,7 +6,7 @@
 /*   By: iidkhebb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 00:00:17 by iidkhebb          #+#    #+#             */
-/*   Updated: 2021/11/20 20:03:31 by iidkhebb         ###   ########.fr       */
+/*   Updated: 2021/11/20 22:25:01 by iidkhebb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ void	is_space(const char *str, char *data, unsigned int *print_count, int *i)
 	}
 }
 
-void	conversions(const char *str, va_list data, unsigned int *print_count, int *i)
+void	conversions(const char *str, va_list data,
+	unsigned int *print_count, int *i)
 {
 	int	c;
 
@@ -61,10 +62,11 @@ void	conversions(const char *str, va_list data, unsigned int *print_count, int *
 		put_pointer(16, va_arg(data, unsigned long), print_count);
 	}
 	else if (*str == ' ')
-		is_space((str+1), va_arg(data, char *), print_count, i);
+		is_space((str + 1), va_arg(data, char *), print_count, i);
 }
 
-void	is_bonus(const char *str, va_list dest, unsigned int *print_count, int *i)
+void	is_bonus(const char *str, va_list dest,
+	unsigned int *print_count, int *i)
 {
 	int				nbr;
 	unsigned int	hexa;
@@ -96,7 +98,7 @@ int	ft_printf(const char *str, ...)
 {
 	va_list			data;
 	va_list			dest;
-	int	i;
+	int				i;
 	unsigned int	print_count;
 
 	if (!str)
