@@ -26,6 +26,8 @@ void	ft_puthex(unsigned int i, unsigned int nbr, const char str,
 void	put_nbr(int i, int nbr, const char *base, unsigned int *print_count);
 void	put_pointer(unsigned long i, unsigned long nbr,
 			unsigned int *print_count);
-void	conversions(const char *str, va_list data, unsigned int *print_count);
+int		ft_atoi(const char *str);
+char	*ft_itoa(int n);
+size_t	ft_strlen(const char *str);
 
 #endif
