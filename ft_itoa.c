@@ -50,6 +50,5 @@ char	*ft_itoa(int n)
 		str[i] = '-';
 	if (n == 0)
 		str[i] = '0';
-	free(str);
 	return (str);
 }
