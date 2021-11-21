@@ -17,10 +17,14 @@ void	is_space(const char *str, char *data, unsigned int *print_count, int *i)
 	int	nbr;
 	int	len;
 	int	tmp;
+	char	*mk;
 
 	nbr = ft_atoi(str);
 	len = ft_strlen(data);
-	tmp = ft_strlen(ft_itoa(nbr));
+	mk = ft_itoa(nbr)
+	tmp = ft_strlen(mk);
+	free(mk);
+	
 	if (*(str) != 's')
 	{
 		*i += tmp + 1 ;
